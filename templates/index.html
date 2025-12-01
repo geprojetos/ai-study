@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SWAPI MCP</title>
+    <style>
+      .spinner {
+        display: none;
+        margin: 24px auto;
+        border: 6px solid #ffd700;
+        border-top: 6px solid #222;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      body {
+        background: #222;
+        color: #f5f5f5;
+        font-family: "Segoe UI", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 500px;
+        margin: 40px auto;
+        background: #333;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        padding: 32px 24px;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 24px;
+        color: #ffd700;
+        letter-spacing: 1px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      label {
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      select,
+      input[type="text"],
+      input[name="param"] {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #444;
+        background: #222;
+        color: #ffd700;
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+      input[type="submit"] {
+        background: #ffd700;
+        color: #222;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      input[type="submit"]:hover {
+        background: #e6c200;
+      }
+      #result {
+        background: #222;
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 24px;
+        color: #fff;
+        font-size: 1rem;
+        white-space: pre-wrap;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Faça uma pergunta para o MCP</h2>
+      <form method="post" id="mcpForm">
+        <label>Escolha a ferramenta:</label>
+        <select name="tool">
+          <option value="search_characters" {% if selected_tool == "search_characters" %}selected{% endif %}>Buscar personagem</option>
+          <option value="search_planets" {% if selected_tool == "search_planets" %}selected{% endif %}>Buscar planeta</option>
+          <option value="search_films" {% if selected_tool == "search_films" %}selected{% endif %}>Buscar filme</option>
+          <option value="get_character_by_id" {% if selected_tool == "get_character_by_id" %}selected{% endif %}>Buscar personagem por ID</option>
+          <option value="list_all_films" {% if selected_tool == "list_all_films" %}selected{% endif %}>Listar todos os filmes</option>
+        </select>
+        <input
+          name="param"
+          placeholder="Digite o parâmetro (nome, título ou ID)"
+        />
+        <input type="submit" value="Consultar" />
+      </form>
+      <div id="response-area">
+        <div class="spinner" id="spinner"></div>
+        {% if resposta %}
+        <script>
+          document.getElementById("spinner").style.display = "none";
+        </script>
+        <div id="result">
+          <h3>Resultado:</h3>
+          <pre>{{ resposta }}</pre>
+        </div>
+        {% endif %}
+      </div>
+      <script>
+        const form = document.getElementById("mcpForm");
+        const spinner = document.getElementById("spinner");
+        const result = document.getElementById("result");
+        form.addEventListener("submit", function () {
+          spinner.style.display = "block";
+          result.style.display = "none";
+        });
+        window.addEventListener("DOMContentLoaded", function () {
+          if (spinner) spinner.style.display = "none";
+          if (!spinner) result.style.display = "block";
+        });
+      </script>
+    </div>
+  </body>
+</html>
