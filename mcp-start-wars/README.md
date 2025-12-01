@@ -5,17 +5,17 @@ Este projeto é uma interface web para consultar dados da Star Wars API (SWAPI) 
 ## Estrutura do Projeto
 
 ```
-teste_python/
+mcp-start-wars/
 ├── app.py                # Web server Flask
-├── main.py               # (Opcional) Script principal
+├── main.py               # Script principal
 ├── mcp_tools.py          # Facade MCP para ferramentas
 ├── model.py              # Modelos de dados
 ├── swapi_client.py       # Cliente SWAPI
 ├── tools.py              # Lógica das ferramentas
-├── types.py              # Tipos auxiliares
+├── .gitignore            # Arquivos ignorados pelo Git
 ├── templates/
 │   └── index.html        # Interface web (Jinja2)
-└── __pycache__/          # Arquivos de cache Python
+└── __pycache__/          # Arquivos de cache Python (ignorado pelo Git)
 ```
 
 ## Pré-requisitos
@@ -41,7 +41,7 @@ teste_python/
 
 1. Navegue até a pasta do projeto:
    ```bash
-   cd c:/Projects/personal/teste_python
+   cd ai-study/mcp-start-wars
    ```
 2. Execute o servidor Flask:
    ```bash
