@@ -81,6 +81,18 @@ mcp-start-wars/
 - Para ver erros detalhados, rode o Flask com `debug=True` (já configurado em `app.py`).
 - Se a interface não responder, confira o console do navegador e o terminal.
 
+## Sistema de Logs
+
+O projeto utiliza um sistema de logging robusto para monitoramento e depuração. A configuração centralizada em `logger.py` garante que os eventos da aplicação sejam registrados de forma padronizada.
+
+**Características:**
+- **Saída em Console:** Mensagens de nível `INFO` e acima são exibidas no console, úteis para acompanhamento em tempo real durante o desenvolvimento ou execução.
+- **Log em Arquivo:** Todos os eventos de log (nível `DEBUG` e acima) são gravados no arquivo `logs/app.log`.
+- **Rotação de Arquivos:** Para evitar que o arquivo de log cresça indefinidamente, a rotação é configurada para um tamanho máximo de 10 MB, mantendo até 5 arquivos de backup (`app.log.1`, `app.log.2`, etc.). Os logs mais recentes são sempre anexados ao final do arquivo ativo.
+
+**Localização dos Logs:**
+Os arquivos de log são armazenados no diretório `logs/` na raiz do projeto.
+
 ## Licença
 
 Este projeto é de uso pessoal e educacional. Adapte conforme sua necessidade.
