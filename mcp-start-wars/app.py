@@ -1,14 +1,15 @@
 
-
-
+import traceback
 from flask import Flask, request, render_template
 from mcp_tools import MCPTools
 from tools import Tools
 from swapi_client import SwapiClient
+from logger import setup_logger
 
 class MCPApp:
     def __init__(self):
         self.app = Flask(__name__)
+        self.logger = setup_logger('app')
         swapi_client = SwapiClient()
         tools = Tools(swapi_client)
         self.mcp_tools = MCPTools(tools)
@@ -26,6 +27,19 @@ class MCPApp:
         def index():
             response = None
             selected_tool = None
+            
+            # Log de requisição HTTP recebida
+            client_ip = request.remote_addr
+            if request.method == "POST":
+                tool = request.form.get("tool")
+                param = request.form.get("param")
+                self.logger.info(
+                    f"Requisição HTTP recebida: POST /, "
+                    f"Tool: {tool}, Param: {param}, IP: {client_ip}"
+                )
+            else:
+                self.logger.info(f"Requisição HTTP recebida: GET /, IP: {client_ip}")
+            
             if request.method == "POST":
                 tool = request.form.get("tool")
                 param = request.form.get("param")
@@ -34,13 +48,20 @@ class MCPApp:
                 if tools:
                     try:
                         response = tools(param)
-                    except Exception:
+                    except Exception as e:
+                        # Log detalhado do erro
+                        self.logger.error(
+                            f"Erro ao executar ferramenta '{tool}': {str(e)}\n"
+                            f"Traceback: {traceback.format_exc()}"
+                        )
                         response = "Erro ao executar a ferramenta."
                 else:
+                    self.logger.warning(f"Tool não reconhecida: {tool}")
                     response = "Tool não reconhecida."
             return render_template("index.html", resposta=response, selected_tool=selected_tool)
 
     def run(self):
+        self.logger.info("Iniciando servidor Flask na porta 5000")
         self.app.run(debug=True)
 
 if __name__ == "__main__":
