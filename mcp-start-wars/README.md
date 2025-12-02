@@ -26,15 +26,26 @@ mcp-start-wars/
 ## Instalação
 
 1. Clone o repositório ou copie os arquivos para seu computador.
-2. (Opcional) Crie um ambiente virtual:
+2. Crie um ambiente virtual (recomendado):
    ```bash
    python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   venv\Scripts\activate     # Windows
    ```
-3. Instale as dependências:
+3. Ative o ambiente virtual:
+   - **Windows (PowerShell)**  
+     ```powershell
+     .\venv\Scripts\Activate.ps1
+     ```
+   - **Windows (Prompt de Comando / CMD)**  
+     ```cmd
+     venv\Scripts\activate
+     ```
+   - **Linux / Mac (bash/zsh)**  
+     ```bash
+     source venv/bin/activate
+     ```
+4. Instale as dependências a partir do `requirements.txt`:
    ```bash
-   pip install flask requests
+   python -m pip install -r requirements.txt
    ```
 
 ## Executando o Projeto
@@ -73,3 +84,17 @@ mcp-start-wars/
 ## Licença
 
 Este projeto é de uso pessoal e educacional. Adapte conforme sua necessidade.
+
+## Gerenciando dependências (`requirements.txt`)
+
+Com o ambiente virtual ativo, você pode gerar ou atualizar o arquivo `requirements.txt` com os pacotes instalados:
+
+```bash
+python -m pip freeze > requirements.txt
+```
+
+Depois, em qualquer máquina (ou após recriar o venv), basta rodar:
+
+```bash
+python -m pip install -r requirements.txt
+```
