@@ -20,7 +20,7 @@ class SwapiClient:
         self.logger.info(f"Requisição MCP → GET {url}{params_str}")
         
         try:
-            response = self.session.get(url, params=params, timeout=10)
+            response = self.session.get(url, params=params, timeout=10, verify=False)
             elapsed_time = time.time() - start_time
             
             response.raise_for_status()
@@ -53,7 +53,7 @@ class SwapiClient:
         self.logger.info(f"Requisição MCP → GET {url}")
         
         try:
-            response = self.session.get(url, timeout=10)
+            response = self.session.get(url, timeout=10, verify=False)
             elapsed_time = time.time() - start_time
             
             response.raise_for_status()
