@@ -37,7 +37,7 @@ A aplicação agora atua como uma interface de linguagem natural para a SWAPI. E
         ```
     *   **Linux / Mac (bash/zsh)**  
         ```bash
-        source venv/bin/activate
+        source venv/Scripts/activate
         ```
 4.  Instale as dependências a partir do `requirements.txt`:
     ```bash
